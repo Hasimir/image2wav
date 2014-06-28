@@ -127,8 +127,8 @@ filename = sys.argv[1]
 
 im = Image.open(filename)
 
-print 'Image format and dimensions:'
-print im.format, im.size, im.mode
+print('Image format and dimensions:')
+print(im.format, im.size, im.mode)
 
 #
 #  step 2 - get the data as an array that we can feed to
@@ -152,12 +152,12 @@ pad = [0] * (fft_window / 2)
 #
 results = []
 
-print 'transforming.....'
+print('transforming.....')
 for i in range(mim.size[1]):
    print i,' of ',mim.size[1]
    slice = []
    for j in range(mim.size[0]):
-      # print (j,i)
+      # print(j,i)
       slice.append(mim.getpixel((j,i)))
 
    result = ifft(slice + pad)
@@ -165,7 +165,7 @@ for i in range(mim.size[1]):
 
 
 samplelength = len(results[0]) * len(results)
-print 'sample length in seconds: ',samplelength / 44100.0
+print('sample length in seconds: ',samplelength / 44100.0)
 
 #
 #  step 4 - save the resultant wav
@@ -176,19 +176,19 @@ wfile.setparams((1,2,44100,samplelength,'NONE',''))
 
 max = 0.0 
 min = 0.0
-print 'finding max amplitude'
+print('finding max amplitude')
 for slice in results:
    for i in slice:
       if abs(i.real) > max:
          max = abs(i.real)
 
-print 'max amplitude is ',max
+print('max amplitude is ',max )
 
 bigint = 2**14
 written = 0
-print 'writing....'
+print('writing....')
 for slice in results:
-   print 'written ',written,' of ',samplelength
+   print('written ',written,' of ',samplelength)
    buff = ''
    for i in slice:
       val = i.real
